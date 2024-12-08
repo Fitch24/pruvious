@@ -24,7 +24,9 @@
       :isPreset="isPreset"
     >
       <template
-        v-for="(childBlocks, slotName) in block.slots"
+        v-for="([slotName, childBlocks]) in Object
+          .entries(block.slots ?? {})
+          .filter(([_slot, blocks]) => Boolean((blocks as any[])?.length))"
         :key="`${keyPrefix}.${i}.block.slots.${slotName}`"
         #[slotName]
       >
