@@ -166,8 +166,8 @@
   "publishConfig": {
     "access": "public"
   },
-  "packageManager": "pnpm@9.4.0",
-  "engines": {
-    "node": ">=20"
-  }
+  "trustedDependencies": [
+    "@parcel/watcher",
+    "unrs-resolver"
+  ]
 }

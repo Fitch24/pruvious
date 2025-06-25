@@ -5,15 +5,15 @@ import { debounce } from 'perfect-debounce'
 
 const execaOptions = { shell: true, stdout: 'inherit', stderr: 'inherit' }
 
-execa('pnpm exec tailwindcss -i ./src/styles/index.css -o ./src/runtime/assets/style.css --watch', { ...execaOptions })
+execa('bun run tailwindcss -i ./src/styles/index.css -o ./src/runtime/assets/style.css --watch', { ...execaOptions })
 
-fs.emptyDirSync('bin')
-fs.emptyDirSync('config')
-fs.copyFileSync('src/cli/config/define.ts', 'config/index.ts')
+fs.emptyDirSync('./bin')
+fs.emptyDirSync('./config')
+fs.copyFileSync('./src/cli/config/define.ts', './config/index.ts')
 
 const context = await esbuild.context({
-  entryPoints: ['src/cli/**/*.ts'],
-  outdir: 'bin',
+  entryPoints: ['./src/cli/**/*.ts'],
+  outdir: './bin',
   platform: 'node',
   external: [],
 })
