@@ -1,0 +1,56 @@
+"use strict";
+import { defineCommand } from "citty";
+import { cyan } from "colorette";
+import consola from "consola";
+import { loadConfig } from "./config/config.js";
+import { SSH } from "./servers/SSH.js";
+import { sortArgs } from "./shared.js";
+export default defineCommand({
+  meta: {
+    name: "backup",
+    description: "Backup production site"
+  },
+  args: sortArgs({
+    domain: {
+      type: "string",
+      alias: "site",
+      description: "Domain name of the site to backup"
+    },
+    ignore: {
+      type: "boolean",
+      description: "Ignore all errors"
+    }
+  }),
+  async run({ args }) {
+    const config = await loadConfig();
+    const sites = config.servers.flatMap(({ name, sites: sites2 }) => sites2.map(({ domain: domain2 }) => ({ server: name, domain: domain2 }))).sort((a, b) => a.domain.localeCompare(b.domain));
+    let domain = args.domain;
+    if (!config.servers.length) {
+      consola.info("No servers found");
+      consola.box("Run `npx pruvious servers add` to add a new server");
+      process.exit(0);
+    } else if (!sites.length) {
+      consola.info("No sites found");
+      process.exit(0);
+    } else if (domain && !sites.some((site2) => site2.domain === domain)) {
+      consola.error(`Site ${cyan(domain)} not found`);
+      process.exit(1);
+    }
+    if (!domain) {
+      domain = await consola.prompt("Select site to backup:", {
+        type: "select",
+        options: sites.map(({ server: server2, domain: domain2 }) => ({ value: domain2, label: domain2, hint: server2 }))
+      });
+      if (typeof domain === "symbol") {
+        process.exit(0);
+      }
+    }
+    const server = config.servers.find((server2) => server2.sites.some((site2) => site2.domain === domain));
+    const site = server.sites.find((site2) => site2.domain === domain);
+    const ssh = new SSH(server, !!args.ignore);
+    await ssh.connect();
+    await ssh.backupSite(site);
+    ssh.disconnect();
+    consola.success(`Site ${cyan(domain)} backed up`);
+  }
+});

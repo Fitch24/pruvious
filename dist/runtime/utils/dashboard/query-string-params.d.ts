@@ -1,0 +1,44 @@
+import { type Ref } from 'vue';
+import { type Token } from '../query-string.js';
+export declare const opMap: {
+    $eq: string;
+    $ne: string;
+    $gt: string;
+    $gte: string;
+    $lt: string;
+    $lte: string;
+    $between: string;
+    $notBetween: string;
+    $in: string;
+    $notIn: string;
+    $like: string;
+    $notLike: string;
+    $iLike: string;
+    $notILike: string;
+};
+export declare class QueryStringParams {
+    selectOption: Ref<string[]>;
+    whereOption: Ref<Record<string, any>>;
+    searchOption: Ref<string[]>;
+    orderOption: Ref<string[]>;
+    pageOption: Ref<number | undefined>;
+    perPageOption: Ref<number | undefined>;
+    select(fields: string | string[]): this;
+    resetSelect(): this;
+    where(options: Record<string, any>): this;
+    resetWhere(): this;
+    search(keywords: string | string[]): this;
+    resetSearch(): this;
+    order(field: string | string[]): this;
+    resetOrder(): this;
+    page(page: number): this;
+    resetPage(): this;
+    perPage(perPage: number): this;
+    resetPerPage(): this;
+    resetAll(): this;
+    fromString(queryString: string): this;
+    toString(): string;
+    protected parseWhere(value: string): Record<string, any>;
+    protected parseWhereFilters(tokens: Token[]): Record<string, any>;
+    stringifyWhere(whereFilter?: Record<string, any>): string;
+}

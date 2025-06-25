@@ -16,7 +16,6 @@ node_modules
 # Generated dirs
 bin
 /config
-dist
 
 # Nuxt
 .nuxt

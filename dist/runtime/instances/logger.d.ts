@@ -1,0 +1,14 @@
+import { type ConsolaInstance } from 'consola';
+export declare const logger: ConsolaInstance;
+export declare function log(message: any, ...args: any[]): void;
+export declare function error(message: any, ...args: any[]): void;
+export declare function info(message: any, ...args: any[]): void;
+export declare function success(message: any, ...args: any[]): void;
+export declare function warn(message: any, ...args: any[]): void;
+export declare function queueError(message: any, ...args: any[]): void;
+export declare function queueInfo(message: any, ...args: any[]): void;
+export declare function queueSuccess(message: any, ...args: any[]): void;
+export declare function queueWarn(message: any, ...args: any[]): void;
+export declare function clearLogQueue(): void;
+export declare function processLogQueue(): void;
+export declare function applyFormats(message: any, ...args: any[]): string;

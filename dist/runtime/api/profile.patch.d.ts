@@ -1,0 +1,36 @@
+declare const _default: import("h3").EventHandler<import("h3").EventHandlerRequest, Promise<string | Pick<{
+    id: number;
+    language: "en" | null;
+    translations: Record<import("../../../.pruvious").SupportedLanguage, number | null> | null;
+    isActive: boolean;
+    isAdmin: boolean;
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+    role: Pick<import("../../../.pruvious").PopulatedFieldType["roles"], "capabilities" | "id" | "name"> | null;
+    capabilities: import("../../../.pruvious").UserCapability[];
+    dashboardLanguage: "en" | null;
+    dateFormat: string;
+    timeFormat: string;
+    createdAt: number | null;
+    updatedAt: number | null;
+} & {
+    id: unknown;
+    language: unknown;
+    translations: unknown;
+    isActive: unknown;
+    isAdmin: unknown;
+    firstName: unknown;
+    lastName: unknown;
+    email: unknown;
+    password: unknown;
+    role: unknown;
+    capabilities: unknown;
+    dashboardLanguage: unknown;
+    dateFormat: unknown;
+    timeFormat: unknown;
+    createdAt: unknown;
+    updatedAt: unknown;
+}, "language" | "role" | "createdAt" | "id" | "updatedAt" | "translations" | "isActive" | "isAdmin" | "firstName" | "lastName" | "email" | "capabilities" | "dashboardLanguage" | "dateFormat" | "timeFormat"> | Partial<Record<"language" | "role" | "createdAt" | "id" | "updatedAt" | "translations" | "isActive" | "isAdmin" | "firstName" | "lastName" | "email" | "capabilities" | "dashboardLanguage" | "dateFormat" | "timeFormat", string>>>>;
+export default _default;
