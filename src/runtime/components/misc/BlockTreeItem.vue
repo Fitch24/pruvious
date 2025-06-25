@@ -3,14 +3,12 @@
     <div
       :data-block="blockKey"
       :title="__('pruvious-dashboard', (dashboard.blocks[blockData.name as BlockName].description ?? '' ) as any)"
-      @click="$emit('update:selectedBlock', blockKey), $emit('clickBlock', blockKey)"
-      @mousedown="
+      @click="
         (e) => {
           if (selectedBlock !== blockKey) {
             $emit('update:selectedBlock', blockKey)
             $emit('update:blockFocused', true)
             $emit('clickBlock', blockKey)
-            e.preventDefault()
           }
         }
       "
